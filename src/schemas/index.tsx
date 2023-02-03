@@ -1,32 +1,32 @@
 import * as yup from "yup"
 
-const passwordRules =/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
-const emailRules =/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
+const emailRules = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 
 
 export const basicSchema = yup.object().shape({
-    email:yup
+  email: yup
     .string()
     .email()
-    .matches(emailRules,{message:"Not valid email"})
-    .required(),
+    .matches(emailRules, { message: "Not valid email" })
+    .required("Required"),
 
-    password:yup
+  password: yup
     .string()
-    .min(5 ,"Too short")
-    .matches(passwordRules, {message:"Please create a stronger password"})
+    .min(5, "Too short")
+    .matches(passwordRules, { message: "Please create a stronger password" })
     .required("Required"),
 
-    confirmpassword:yup.string()
-    .min(5 ,"Too short")
-    .matches(passwordRules, {message:"Please create a stronger password"})
+  confirmpassword: yup.string()
+    .min(5, "Too short")
+    .matches(passwordRules, { message: "Please create a stronger password" })
     .required("Required"),
 
-    firstname:yup.string().required("Required"),
+  firstname: yup.string().required("Required"),
 
-    lastname:yup.string().required("Required"),
-    
-    phone:yup
+  lastname: yup.string().required("Required"),
+
+  phone: yup
     .string()
     .min(10)
     .matches(
@@ -35,9 +35,42 @@ export const basicSchema = yup.object().shape({
     )
     .required("Required"),
 
-    checkbox:yup.boolean().oneOf([true],"Must Accept Terms and Condition"),
+  checkbox: yup.boolean().oneOf([true], "Must Accept Terms and Condition").required("Required"),
 
-    checkbox2:yup.boolean().oneOf([true],"Must Agree with the Jobboard privacy policy")
-    
+  checkbox2: yup.boolean().oneOf([true], "Must Agree with the Jobboard privacy policy").required("Required")
+
 })
+
+
+const SignInSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email()
+    .matches(emailRules, { message: "Not valid email" })
+    .required("Required"),
+  password: yup
+    .string()
+    .min(5, "Too short")
+    .matches(passwordRules, { message: "Please create a stronger password" })
+    .required("Required"),
+  checkbox: yup 
+  .boolean()
+  .oneOf([true],"Must keep sign in").required("Required")
+  
+
+
+
+})
+
+export { SignInSchema }
+
+const ForgetPswSchema = yup.object().shape({
+  email:yup 
+  .string()
+  .email()
+  .matches(emailRules,{message:"Not valid email"})
+  .required()
+})
+
+export {ForgetPswSchema}
 

@@ -5,36 +5,52 @@ import clsx from 'clsx'
 import { useFormik } from 'formik'
 import { constants } from 'fs/promises'
 import css from '../../utility'
+import { useNavigate } from 'react-router-dom'
+
+interface initialValues {
+    firstname: string,
+    lastname: string,
+    email: string,
+    phone: string,
+    password: string,
+    confirmpassword: string,
+    checkbox: boolean,
+    checkbox2: boolean
+}
 
 
 const SignUpForm = () => {
 
-    const onSubmit = () => {
-        console.log("Submitted")
+
+
+    const onSubmit = (values:any , actions:any) => {
+        console.log(values);
+        console.log(actions);
+
+    }
+
+    const initialValues: initialValues = {
+        firstname: "",
+        lastname: "",
+        email: "",
+        phone: "",
+        password: "",
+        confirmpassword: "",
+        checkbox2: false,
+        checkbox: false
     }
 
     const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-        initialValues: {
-            firstname: "",
-            lastname: "",
-            email: "",
-            phone: "",
-            password: "",
-            confirmpassword: "",
-            checkbox: false,
-            checkbox2: false
-
-        },
+        initialValues,
         validationSchema: basicSchema,
         onSubmit,
+
     });
 
-    const classes = {
-        root: "form_input w-input",
-        err: "form_input_error",
-    }
 
     console.log(errors);
+
+    let navigate = useNavigate()
 
     //  const style = clsx({ [classes.root]: true, [classes.err] : errors.firstname && touched.firstname})
     //  const style2 = clsx({ [classes.root]: true , [classes.err] : errors.lastname && touched.lastname})
@@ -61,6 +77,7 @@ const SignUpForm = () => {
                                             method="get"
                                             className="form_form"
                                             onSubmit={handleSubmit}
+
                                         >
                                             <div className="header-wrapper">
                                                 <div className="text-size-large text-weight-bold">Sign Up to get started</div>
@@ -71,7 +88,7 @@ const SignUpForm = () => {
                                                     <input
                                                         type="text"
                                                         //  className={style} 
-                                                        autoFocus={true} maxLength={256}
+                                                        maxLength={256}
                                                         name="firstname"
                                                         placeholder="John"
                                                         id="First-name"
@@ -167,7 +184,7 @@ const SignUpForm = () => {
                                             <div className="form_field-wrapper is-horizontal">
                                                 <label className="w-checkbox form_checkbox is-sign-in">
                                                     <div className="w-checkbox-input w-checkbox-input--inputType-custom form_checkbox-icon"></div>
-                                                    <input type="checkbox" name="checkbox" id="Checkbox-2"
+                                                    <input type="checkbox" name="checkbox" id="Checkbox"
                                                         onChange={handleChange}
                                                         onBlur={handleBlur}
                                                         value={String(values.checkbox)}
@@ -189,7 +206,7 @@ const SignUpForm = () => {
                                                 </label>
 
                                             </div>
-                                            {errors.checkbox && <p className="error-text">{errors.checkbox}</p>}
+                                            {errors.checkbox && touched.checkbox && <p className="error-text">{errors.checkbox}</p>}
 
                                             <div className="form_field-wrapper is-horizontal">
                                                 <label className="w-checkbox form_checkbox is-sign-in">
@@ -205,14 +222,14 @@ const SignUpForm = () => {
                                                         onBlur={handleBlur}
                                                         value={String(values.checkbox2)}
                                                         className={css(
-                                                            errors.checkbox2 && touched.checkbox2 ? "form_input_error":"form_input w-input"
+                                                            errors.checkbox2 && touched.checkbox2 ? "form_input_error" : "form_input w-input"
                                                         )} />
 
                                                     <span className="form_checkbox-label w-form-label">I agree with the <a href="#"> Jobboard privacy policy</a></span>
                                                 </label>
                                             </div>
-                                            {errors.checkbox2 && <p className="error-text">{errors.checkbox2}</p>}
-                                            <button className="button is-form-submit w-button custom-button">Sign Up</button>
+                                            {errors.checkbox2 && touched.checkbox2 && <p className="error-text">{errors.checkbox2}</p>}
+                                            <button className="button is-form-submit w-button custom-button" onClick={() => handleSubmit}>Sign Up</button>
 
                                         </form>
                                     </div>
@@ -267,7 +284,7 @@ const SignUpForm = () => {
                                     <div className="cta-wrapper">
                                         <div>Don&#x27;t have an account?</div>
                                         <a href="#" className="sign-up_button w-inline-block link-animation">
-                                            <div className="link-value">Sign Up</div>
+                                            <div className="link-value" onClick={()=> navigate("/signin")} >Sign In</div>
                                         </a>
                                     </div>
                                 </div>

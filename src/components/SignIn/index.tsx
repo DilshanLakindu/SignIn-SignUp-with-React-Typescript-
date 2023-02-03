@@ -2,15 +2,16 @@ import React, { useState } from 'react'
 import LOGO from "../../Assets/images/Ellipse1.jpg"
 import { useNavigate } from 'react-router-dom'
 import { Formik, useFormik } from 'formik'
-import { basicSchema } from '../../schemas'
+import { SignInSchema, basicSchema } from '../../schemas'
 import clsx from 'clsx'
 import css from '../../utility'
 
-
+interface initialValues {
+  email: string,
+  password: string,
+}
 
 const SignInForm = () => {
-
-
 
   // const [userEmail, setEmail] = useState('')
   // const [password, setPassword] = useState('')
@@ -18,10 +19,6 @@ const SignInForm = () => {
 
 
   let navigate = useNavigate();
-
-  const SignUp = () => {
-    navigate("/signup")
-  }
 
   const ForgetPsw = () => {
     navigate("/forgetpsw")
@@ -36,8 +33,9 @@ const SignInForm = () => {
     initialValues: {
       email: "",
       password: "",
+      checkbox:""
     },
-    validationSchema: basicSchema,
+    validationSchema: SignInSchema,
     onSubmit,
   });
 
@@ -82,7 +80,7 @@ const SignInForm = () => {
                       data-name="Form"
                       method="get"
                       className="form_form"
-                      onSubmit={handleSubmit}
+                    // onSubmit={handleSubmit}
                     >
                       <div className="header-wrapper">
                         <div className="text-size-large text-weight-bold">Sign In</div>
@@ -130,20 +128,28 @@ const SignInForm = () => {
                       <div className="form_field-wrapper is-horizontal">
                         <label className="w-checkbox form_checkbox is-sign-in">
                           <div className="w-checkbox-input w-checkbox-input--inputType-custom form_checkbox-icon"></div>
-                          <input type="checkbox" name="Checkbox-2" id="Checkbox-2"
+                          <input type="checkbox" name="checkbox" id="checkbox"
                             style={{
                               opacity: 0,
                               position: "absolute",
                               zIndex: -1,
                               border: 0,
-                            }} />
+                            }} 
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={String(values.checkbox)}
+                            className={css(
+                              errors.checkbox && touched.checkbox ? "form_input_error":"form_input w-input"
+                            )}/>
                           <span className="form_checkbox-label w-form-label">Keep me sign in</span>
                         </label>
+                        
                         <a href="#" className="text-link w-inline-block ">
                           <div className="text-link-animation" onClick={ForgetPsw}>Forgot password?</div>
                         </a>
                       </div>
-                      <button className="button is-form-submit w-button custom-button">Sign In</button>
+                      {errors.checkbox && touched.checkbox && <p className="error-text">{errors.checkbox}</p>}
+                      <button type='button' className="button is-form-submit w-button custom-button" onClick={() => handleSubmit()}>Sign In</button>
                     </form>
 
                   </div>
@@ -203,7 +209,7 @@ const SignInForm = () => {
                   <div className="cta-wrapper">
                     <div>Don&#x27;t have an account?</div>
                     <a href="#" className="sign-up_button w-inline-block link-animation">
-                      <div className="link-value" onClick={SignUp}>Sign Up</div>
+                      <div className="link-value" onClick={() => navigate("/signup")}>Sign Up</div>
                     </a>
                   </div>
 
