@@ -20,7 +20,9 @@ const SignUpForm = () => {
             email: "",
             phone: "",
             password: "",
-            confirmpassword: ""
+            confirmpassword: "",
+            checkbox: false,
+            checkbox2: false
 
         },
         validationSchema: basicSchema,
@@ -165,33 +167,51 @@ const SignUpForm = () => {
                                             <div className="form_field-wrapper is-horizontal">
                                                 <label className="w-checkbox form_checkbox is-sign-in">
                                                     <div className="w-checkbox-input w-checkbox-input--inputType-custom form_checkbox-icon"></div>
-                                                    <input type="checkbox" name="Checkbox-2" id="Checkbox-2"
+                                                    <input type="checkbox" name="checkbox" id="Checkbox-2"
+                                                        onChange={handleChange}
+                                                        onBlur={handleBlur}
+                                                        value={String(values.checkbox)}
                                                         style={{
                                                             opacity: 0,
                                                             position: "absolute",
                                                             zIndex: -1,
                                                             border: 0,
-                                                        }} />
+
+                                                        }}
+                                                        className={css(
+                                                            errors.checkbox && touched.checkbox ? "form_input_error" : "form_input w-input"
+                                                        )} />
 
                                                     <span className="form_checkbox-label w-form-label">I accept the <a href="#">Terms
                                                         and
                                                         Conditions</a></span>
+
                                                 </label>
+
                                             </div>
+                                            {errors.checkbox && <p className="error-text">{errors.checkbox}</p>}
+
                                             <div className="form_field-wrapper is-horizontal">
                                                 <label className="w-checkbox form_checkbox is-sign-in">
                                                     <div className="w-checkbox-input w-checkbox-input--inputType-custom form_checkbox-icon"></div>
-                                                    <input type="checkbox" name="Checkbox-2" id="Checkbox-2"
+                                                    <input type="checkbox" name="checkbox2" id="Checkbox-2"
                                                         style={{
                                                             opacity: 0,
                                                             position: "absolute",
                                                             zIndex: -1,
                                                             border: 0,
-                                                        }} />
+                                                        }}
+                                                        onChange={handleChange}
+                                                        onBlur={handleBlur}
+                                                        value={String(values.checkbox2)}
+                                                        className={css(
+                                                            errors.checkbox2 && touched.checkbox2 ? "form_input_error":"form_input w-input"
+                                                        )} />
 
                                                     <span className="form_checkbox-label w-form-label">I agree with the <a href="#"> Jobboard privacy policy</a></span>
                                                 </label>
                                             </div>
+                                            {errors.checkbox2 && <p className="error-text">{errors.checkbox2}</p>}
                                             <button className="button is-form-submit w-button custom-button">Sign Up</button>
 
                                         </form>

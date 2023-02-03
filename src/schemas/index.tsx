@@ -33,7 +33,11 @@ export const basicSchema = yup.object().shape({
       /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
       "Must be only digits"
     )
-    .required("Required")
+    .required("Required"),
+
+    checkbox:yup.boolean().oneOf([true],"Must Accept Terms and Condition"),
+
+    checkbox2:yup.boolean().oneOf([true],"Must Agree with the Jobboard privacy policy")
     
 })
 
