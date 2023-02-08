@@ -184,7 +184,7 @@ const SignUpForm = () => {
                                             <div className="form_field-wrapper is-horizontal">
                                                 <label className="w-checkbox form_checkbox is-sign-in">
                                                     <div className="w-checkbox-input w-checkbox-input--inputType-custom form_checkbox-icon"></div>
-                                                    <input type="checkbox" name="checkbox" id="Checkbox"
+                                                     <input type="checkbox" name="checkbox" id="Checkbox"
                                                         onChange={handleChange}
                                                         onBlur={handleBlur}
                                                         value={String(values.checkbox)}

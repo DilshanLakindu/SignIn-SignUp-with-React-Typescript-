@@ -5,10 +5,12 @@ import { Formik, useFormik } from 'formik'
 import { SignInSchema, basicSchema } from '../../schemas'
 import clsx from 'clsx'
 import css from '../../utility'
+import TextInput from '../textinput'
 
-interface initialValues {
+export interface InputProps {
   email: string,
   password: string,
+
 }
 
 const SignInForm = () => {
@@ -103,6 +105,7 @@ const SignInForm = () => {
                         // className={errors.email ? "form_input_error" : "form_input w-input"}
                         // onChange={e => setEmail(e.target.value)} />
                         />
+
                         {errors.email && touched.email && <p className="error-text">{errors.email}</p>}
 
                       </div>

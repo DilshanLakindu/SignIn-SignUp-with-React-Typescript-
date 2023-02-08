@@ -35,7 +35,10 @@ export const basicSchema = yup.object().shape({
     )
     .required("Required"),
 
-  checkbox: yup.boolean().oneOf([true], "Must Accept Terms and Condition").required("Required"),
+    checkbox: yup 
+    .boolean()
+    .oneOf([true],"Must keep sign in").required("Required"),
+  
 
   checkbox2: yup.boolean().oneOf([true], "Must Agree with the Jobboard privacy policy").required("Required")
 
@@ -47,12 +50,12 @@ const SignInSchema = yup.object().shape({
     .string()
     .email()
     .matches(emailRules, { message: "Not valid email" })
-    .required("Required"),
+    .required("Email must required"),
   password: yup
     .string()
     .min(5, "Too short")
     .matches(passwordRules, { message: "Please create a stronger password" })
-    .required("Required"),
+    .required("Password must Required"),
   checkbox: yup 
   .boolean()
   .oneOf([true],"Must keep sign in").required("Required")
@@ -74,3 +77,9 @@ const ForgetPswSchema = yup.object().shape({
 
 export {ForgetPswSchema}
 
+
+const OTPhandle =yup.object().shape({
+  
+  otp:yup.boolean().oneOf([true],"Must keep sign in").required("Required")
+})
+export {OTPhandle}
